@@ -52,9 +52,7 @@ ProgramState state = setStop;     //initial state = 'set'
 
 //calculation function
 float calcDesired(float kp, float kd, float desired, float actualSpeed){
-    //float currenttime = 0.01;
     dt = 0.000001;
-    //dt = currenttime - lasttime;
     float bError = desired - actualSpeed;
     float derror = (bError - lasterror) / dt;
         
@@ -65,7 +63,6 @@ float calcDesired(float kp, float kd, float desired, float actualSpeed){
     */
         
     lasterror = bError;
-    //lasttime = currenttime;
     return output;
     
 }
@@ -107,15 +104,10 @@ void driveForward(float idealSpdw1, float idealSpdw2){
     m2.forward(dutyCycleControlw2); 
 }
 void stop(float idealSpdw1, float idealSpdw2){
-    //dutyCycleControlw1 = setSpeed(w1Speed, idealSpdw1, 1.015);
-    //dutyCycleControlw2 = setSpeed(w2Speed, idealSpdw2, 1.015); 
-    //ena.write(0);
     m1.forward(0.00f);
     m2.backward(0.00f);
 }
 void turn(float idealSpdw1, float idealSpdw2){
-    //dutyCycleControlw1 = setSpeed(w1Speed, idealSpdw1, 1.015);
-    //dutyCycleControlw2 = setSpeed(w2Speed, idealSpdw2, 1.015); 
     ena.write(1);
     m1.forward(0.43);
     m2.backward(0.23);
@@ -221,7 +213,6 @@ void trackPosition(){ //increased speed.
         //major deviate to the right, correct it by speeding up right wheel significantly (shift left)
         //000001
         errorPos = -5;
-        //driveForward(0,20);
         driveSharpLeft(29);
     }
     else if (SensorValues[0] == 0 && SensorValues[1] == 0 && SensorValues[2] == 0 && SensorValues[3] == 0 && SensorValues[4] == 0 && SensorValues[5] == 0){
@@ -272,8 +263,8 @@ int main(){
             else if (flag == 2){
                 if (SensorValues[0] == 1 ||SensorValues[1] == 1||SensorValues[2] == 1 || SensorValues[3] == 1 || SensorValues[4] == 1 || SensorValues[5] == 1){
                    flag = 0;
-                   //stopTicker.attach(&endStopISR, 0.08);
-                   //reverseTurn();
+                   stopTicker.attach(&endStopISR, 0.08);
+                   reverseTurn(); 
                    } 
                 else {turn(4,4);}
             }
