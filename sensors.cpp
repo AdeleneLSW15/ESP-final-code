@@ -1,7 +1,5 @@
-/*
-Test program to show sensor values on LCD screen
-Note: Change pins to your microcontroller pins.
-*/
+//Sensor Class code, digitalize values from TCRT5000
+// 1 = white detected, 0 = black detected.
 #include "mbed.h"
 
 class sensor{
